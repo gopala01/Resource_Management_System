@@ -1,10 +1,11 @@
 package main
 
 import (
-	"database/database"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gopalabhamidipati/backend/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -27,7 +28,11 @@ func track_status() {
 
 }
 func main() {
-	db, err = database.NewConnection()
+	db, err := database.NewConnection()
+	if err != nil{
+		log.Fatalf(("failed to connect to datavase"))
+	}
+	defer db.Close()
 	r := gin.Default()
 	r.POST("/jobs", func(c *gin.Context) {
 		id := c.Param("id")
