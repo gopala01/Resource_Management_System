@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/database"
 	"fmt"
 	"log"
 	"net/http"
@@ -26,6 +27,7 @@ func track_status() {
 
 }
 func main() {
+	db, err = database.NewConnection()
 	r := gin.Default()
 	r.POST("/jobs", func(c *gin.Context) {
 		id := c.Param("id")
@@ -60,5 +62,5 @@ func main() {
 		log.Fatalf("failed to run server: %v", err)
   	}
 
-	
+
 }
